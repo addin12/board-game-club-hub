@@ -17,7 +17,8 @@ export async function generateMetadata({
 }
 
 async function getCollection(username: string) {
-  const url = `${getBaseUrl()}/api/collection/${encodeURIComponent(username)}`
+  // Use relative path for internal API calls (works correctly on Vercel)
+  const url = `/api/collection/${encodeURIComponent(username)}`
 
   console.log('[getCollection] Fetching from:', url)
 
