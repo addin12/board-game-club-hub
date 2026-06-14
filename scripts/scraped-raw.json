@@ -1,0 +1,661 @@
+{
+  "captured": [],
+  "games": [
+    {
+      "id": "422732",
+      "name": "Agent Avenue (English edition)",
+      "yearRaw": "(2024)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.947"
+    },
+    {
+      "id": "230802",
+      "name": "Azul",
+      "yearRaw": "(2017)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.605"
+    },
+    {
+      "id": "240980",
+      "name": "Blood on the Clocktower",
+      "yearRaw": "(2022)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.719"
+    },
+    {
+      "id": "170216",
+      "name": "Blood Rage",
+      "yearRaw": "(2015)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.721"
+    },
+    {
+      "id": "413246",
+      "name": "Bomb Busters",
+      "yearRaw": "(2024)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.622"
+    },
+    {
+      "id": "260605",
+      "name": "Camel Up (Second Edition)",
+      "yearRaw": "(2018)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.249"
+    },
+    {
+      "id": "171131",
+      "name": "Captain Sonar",
+      "yearRaw": "(2016)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.285"
+    },
+    {
+      "id": "329954",
+      "name": "Carcassonne: 20th Anniversary Edition",
+      "yearRaw": "(2021)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.863"
+    },
+    {
+      "id": "295947",
+      "name": "Cascadia",
+      "yearRaw": "(2021)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.734"
+    },
+    {
+      "id": "13",
+      "name": "Catan",
+      "yearRaw": "(1995)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.903"
+    },
+    {
+      "id": "365717",
+      "name": "Clank!: Catacombs",
+      "yearRaw": "(2022)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.777"
+    },
+    {
+      "id": "178900",
+      "name": "Codenames",
+      "yearRaw": "(2015)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.428"
+    },
+    {
+      "id": "131357",
+      "name": "Coup",
+      "yearRaw": "(2012)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.832"
+    },
+    {
+      "id": "",
+      "name": "Coup: Reformation",
+      "yearRaw": "(2013)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.713"
+    },
+    {
+      "id": "443688",
+      "name": "Coyote",
+      "yearRaw": "(2025)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "5.533"
+    },
+    {
+      "id": "324856",
+      "name": "The Crew: Mission Deep Sea",
+      "yearRaw": "(2021)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.805"
+    },
+    {
+      "id": "156129",
+      "name": "Deception: Murder in Hong Kong",
+      "yearRaw": "(2014)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.215"
+    },
+    {
+      "id": "427866",
+      "name": "Deep Sea Adventure Boost",
+      "yearRaw": "(2024)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "5.833"
+    },
+    {
+      "id": "92828",
+      "name": "Dixit: Odyssey",
+      "yearRaw": "(2011)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.143"
+    },
+    {
+      "id": "397598",
+      "name": "Dune: Imperium – Uprising",
+      "yearRaw": "(2023)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "8.244"
+    },
+    {
+      "id": "199792",
+      "name": "Everdell",
+      "yearRaw": "(2018)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.805"
+    },
+    {
+      "id": "256804",
+      "name": "Exploding Kittens: Party Pack",
+      "yearRaw": "(2017)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.216"
+    },
+    {
+      "id": "135779",
+      "name": "A Fake Artist Goes to New York",
+      "yearRaw": "(2011)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.796"
+    },
+    {
+      "id": "177736",
+      "name": "A Feast for Odin",
+      "yearRaw": "(2016)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.940"
+    },
+    {
+      "id": "271601",
+      "name": "Feed the Kraken",
+      "yearRaw": "(2022)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.085"
+    },
+    {
+      "id": "420087",
+      "name": "Flip 7 (English second edition)",
+      "yearRaw": "(2025)",
+      "thumbnail": "",
+      "userRatingRaw": "8\n\t\t\t\t\t Sep 2025",
+      "communityRatingRaw": "6.989"
+    },
+    {
+      "id": "93",
+      "name": "El Grande",
+      "yearRaw": "(1995)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.592"
+    },
+    {
+      "id": "341169",
+      "name": "Great Western Trail: Second Edition",
+      "yearRaw": "(2021)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.904"
+    },
+    {
+      "id": "414317",
+      "name": "Harmonies",
+      "yearRaw": "(2024)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.758"
+    },
+    {
+      "id": "366013",
+      "name": "Heat: Pedal to the Metal",
+      "yearRaw": "(2022)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.795"
+    },
+    {
+      "id": "282524",
+      "name": "Horrified",
+      "yearRaw": "(2019)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.293"
+    },
+    {
+      "id": "446497",
+      "name": "Hot Streak",
+      "yearRaw": "(2025)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.154"
+    },
+    {
+      "id": "302520",
+      "name": "Hues and Cues",
+      "yearRaw": "(2020)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.155"
+    },
+    {
+      "id": "177524",
+      "name": "ICECOOL",
+      "yearRaw": "(2016)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.551"
+    },
+    {
+      "id": "54043",
+      "name": "Jaipur",
+      "yearRaw": "(2009)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.361"
+    },
+    {
+      "id": "254640",
+      "name": "Just One",
+      "yearRaw": "(2018)",
+      "thumbnail": "",
+      "userRatingRaw": "7\n\t\t\t\t\t Sep 2025",
+      "communityRatingRaw": "7.437"
+    },
+    {
+      "id": "447733",
+      "name": "Kata Emak",
+      "yearRaw": "(2019)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "N/A"
+    },
+    {
+      "id": "70323",
+      "name": "King of Tokyo",
+      "yearRaw": "(2011)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.008"
+    },
+    {
+      "id": "",
+      "name": "King of Tokyo: Gift Promo Cards",
+      "yearRaw": "(2022)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "N/A"
+    },
+    {
+      "id": "",
+      "name": "King of Tokyo: Halloween",
+      "yearRaw": "(2013)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.629"
+    },
+    {
+      "id": "",
+      "name": "King of Tokyo: Mindbug",
+      "yearRaw": "(2025)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "5.545"
+    },
+    {
+      "id": "",
+      "name": "King of Tokyo: Power Up!",
+      "yearRaw": "(2012)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.198"
+    },
+    {
+      "id": "",
+      "name": "King of Tokyo/New York: Monster Pack – Anubis",
+      "yearRaw": "(2018)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "5.981"
+    },
+    {
+      "id": "",
+      "name": "King of Tokyo/New York: Monster Pack – Cthulhu",
+      "yearRaw": "(2017)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.190"
+    },
+    {
+      "id": "",
+      "name": "King of Tokyo/New York: Monster Pack – Cybertooth",
+      "yearRaw": "(2019)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "5.895"
+    },
+    {
+      "id": "",
+      "name": "King of Tokyo/New York: Monster Pack – King Kong",
+      "yearRaw": "(2017)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "5.968"
+    },
+    {
+      "id": "204583",
+      "name": "Kingdomino",
+      "yearRaw": "(2016)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.169"
+    },
+    {
+      "id": "165722",
+      "name": "KLASK",
+      "yearRaw": "(2014)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.262"
+    },
+    {
+      "id": "421006",
+      "name": "The Lord of the Rings: Duel for Middle-earth",
+      "yearRaw": "(2024)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.986"
+    },
+    {
+      "id": "312484",
+      "name": "Lost Ruins of Arnak",
+      "yearRaw": "(2020)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.916"
+    },
+    {
+      "id": "277085",
+      "name": "Love Letter",
+      "yearRaw": "(2019)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.188"
+    },
+    {
+      "id": "96848",
+      "name": "Mage Knight Board Game",
+      "yearRaw": "(2011)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.837"
+    },
+    {
+      "id": "10630",
+      "name": "Memoir '44 (English \"refreshed\" edition)",
+      "yearRaw": "(2025)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.330"
+    },
+    {
+      "id": "118",
+      "name": "Modern Art (CMON English edition 2024)",
+      "yearRaw": "(2024)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.331"
+    },
+    {
+      "id": "160477",
+      "name": "Onitama",
+      "yearRaw": "(2014)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.137"
+    },
+    {
+      "id": "437306",
+      "name": "Parks (Second Edition) (English edition)",
+      "yearRaw": "(2025)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.498"
+    },
+    {
+      "id": "217372",
+      "name": "The Quest for El Dorado (English/French edition)",
+      "yearRaw": "(2023)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.537"
+    },
+    {
+      "id": "351040",
+      "name": "Ready Set Bet",
+      "yearRaw": "(2022)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.058"
+    },
+    {
+      "id": "128882",
+      "name": "The Resistance: Avalon",
+      "yearRaw": "(2012)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.301"
+    },
+    {
+      "id": "262114",
+      "name": "Rival Restaurants (English deluxe edition)",
+      "yearRaw": "(2020)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.204"
+    },
+    {
+      "id": "237182",
+      "name": "Root",
+      "yearRaw": "(2018)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.882"
+    },
+    {
+      "id": "9220",
+      "name": "Saboteur",
+      "yearRaw": "(2004)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.411"
+    },
+    {
+      "id": "291453",
+      "name": "SCOUT",
+      "yearRaw": "(2019)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.580"
+    },
+    {
+      "id": "367220",
+      "name": "Sea Salt & Paper",
+      "yearRaw": "(2022)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.268"
+    },
+    {
+      "id": "188834",
+      "name": "Secret Hitler",
+      "yearRaw": "(2016)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.249"
+    },
+    {
+      "id": "443604",
+      "name": "Sekata",
+      "yearRaw": "(2021)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "N/A"
+    },
+    {
+      "id": "418059",
+      "name": "SETI: Search for Extraterrestrial Intelligence",
+      "yearRaw": "(2024)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "8.036"
+    },
+    {
+      "id": "298638",
+      "name": "Sheriff of Nottingham: 2nd Edition",
+      "yearRaw": "(2020)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.523"
+    },
+    {
+      "id": "92415",
+      "name": "Skull",
+      "yearRaw": "(2011)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.010"
+    },
+    {
+      "id": "338960",
+      "name": "Slay the Spire: The Board Game",
+      "yearRaw": "(2024)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "8.034"
+    },
+    {
+      "id": "309630",
+      "name": "Small World of Warcraft (English edition)",
+      "yearRaw": "(2020)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.583"
+    },
+    {
+      "id": "162886",
+      "name": "Spirit Island",
+      "yearRaw": "(2017)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "8.142"
+    },
+    {
+      "id": "148228",
+      "name": "Splendor",
+      "yearRaw": "(2014)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.293"
+    },
+    {
+      "id": "425428",
+      "name": "Survive The Island",
+      "yearRaw": "(2024)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.595"
+    },
+    {
+      "id": "192291",
+      "name": "Sushi Go Party!",
+      "yearRaw": "(2016)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.217"
+    },
+    {
+      "id": "434906",
+      "name": "Tag Team",
+      "yearRaw": "(2025)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.781"
+    },
+    {
+      "id": "129556",
+      "name": "Tapple (English edition 2021)",
+      "yearRaw": "(2021)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "5.977"
+    },
+    {
+      "id": "9209",
+      "name": "Ticket to Ride",
+      "yearRaw": "(2004)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.261"
+    },
+    {
+      "id": "337627",
+      "name": "Voidfall",
+      "yearRaw": "(2023)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.654"
+    },
+    {
+      "id": "262543",
+      "name": "Wavelength",
+      "yearRaw": "(2019)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "6.973"
+    },
+    {
+      "id": "266192",
+      "name": "Wingspan",
+      "yearRaw": "(2019)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.845"
+    },
+    {
+      "id": "227935",
+      "name": "Wonderland's War",
+      "yearRaw": "(2022)",
+      "thumbnail": "",
+      "userRatingRaw": "N/A",
+      "communityRatingRaw": "7.504"
+    }
+  ]
+}

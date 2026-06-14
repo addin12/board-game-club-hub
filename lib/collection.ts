@@ -1,5 +1,6 @@
 import { parseCollection } from './bgg'
 import { BoardGame } from './types'
+import { DEEDEEN_COLLECTION } from './deedeen-collection'
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -72,7 +73,12 @@ export async function getCollectionData(
   maxAttempts: number = 5,
   delayMs: number = 3000
 ): Promise<BoardGame[]> {
-  const isDemoUser = username.toLowerCase() === 'demo' || username.toLowerCase() === 'deedeen'
+  // Real scraped collection for Deedeen (BGG's XML API now requires auth)
+  if (username.toLowerCase() === 'deedeen') {
+    return DEEDEEN_COLLECTION
+  }
+
+  const isDemoUser = username.toLowerCase() === 'demo'
 
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     console.log(`[getCollectionData] Attempt ${attempt}/${maxAttempts} for "${username}"`)
