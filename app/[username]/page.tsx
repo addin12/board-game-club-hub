@@ -3,7 +3,9 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import CollectionStats from '@/components/CollectionStats'
 import GameGrid from '@/components/GameGrid'
-import { getBaseUrl } from '@/lib/utils'
+import { getCollectionData, CollectionError } from '@/lib/collection'
+
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({
   params,
@@ -16,46 +18,29 @@ export async function generateMetadata({
   }
 }
 
-async function getCollection(username: string) {
-  // Use absolute URL for server-side fetch
-  const url = `${getBaseUrl()}/api/collection/${encodeURIComponent(username)}`
-
-  console.log('[getCollection] Fetching from:', url)
-
-  try {
-    const response = await fetch(url, {
-      cache: 'no-store',
-    })
-
-    console.log('[getCollection] Response status:', response.status)
-
-    if (response.status === 404) {
-      notFound()
-    }
-
-    if (!response.ok) {
-      const errorData = await response.json()
-      const errorMessage = errorData.error || `API returned ${response.status}`
-      console.error('[getCollection] API error:', errorMessage)
-      throw new Error(errorMessage)
-    }
-
-    const data = await response.json()
-    console.log('[getCollection] Success, games count:', data.length)
-    return data
-  } catch (error) {
-    console.error('[getCollection] Error:', error)
-    throw error
-  }
-}
-
 export default async function CollectionPage({
   params,
 }: {
   params: Promise<{ username: string }>
 }) {
   const { username } = await params
-  const games = await getCollection(username)
+
+  // Validate username to prevent malformed requests
+  if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
+    notFound()
+  }
+
+  let games
+  try {
+    // Call the BGG data layer directly — no internal HTTP round-trip
+    games = await getCollectionData(username)
+  } catch (error) {
+    if (error instanceof CollectionError && error.status === 404) {
+      notFound()
+    }
+    // Re-throw so the error boundary (error.tsx) shows a friendly message
+    throw error
+  }
 
   return (
     <main className="min-h-screen bg-slate-900 px-4 py-8">

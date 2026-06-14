@@ -1,160 +1,26 @@
-import { parseCollection } from '@/lib/bgg'
-import { BoardGame } from '@/lib/types'
+import { getCollectionData, CollectionError } from '@/lib/collection'
 
 export const dynamic = 'force-dynamic'
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-
-// Demo data for testing UI when BGG API is unavailable
-const DEMO_DATA: BoardGame[] = [
-  {
-    id: '13',
-    name: 'Catan',
-    yearPublished: 1995,
-    thumbnail: 'https://cf.geekdo-images.com/small/img/dn9kkG91fTk_W7zrDLHkO_I4KYc=/fit-in/200x150/pic1077128.jpg',
-    image: 'https://cf.geekdo-images.com/large/img/1234/pic1077128.jpg',
-    minPlayers: 3,
-    maxPlayers: 4,
-    minPlayTime: 60,
-    maxPlayTime: 90,
-    userRating: 8.5,
-    communityRating: 7.2,
-    bggRank: 241,
-    numPlays: 12,
-  },
-  {
-    id: '175914',
-    name: 'Gloomhaven',
-    yearPublished: 2017,
-    thumbnail: 'https://cf.geekdo-images.com/small/img/1_OERnj7q0glb2pCqNNQx6JxAMfrM=/fit-in/200x150/pic2272277.jpg',
-    image: 'https://cf.geekdo-images.com/large/img/1_OERnj7q0glb2pCqNNQx6JxAMfrM=/fit-in/500x500/pic2272277.jpg',
-    minPlayers: 1,
-    maxPlayers: 4,
-    minPlayTime: 60,
-    maxPlayTime: 120,
-    userRating: 9,
-    communityRating: 8.8,
-    bggRank: 4,
-    numPlays: 25,
-  },
-  {
-    id: '224517',
-    name: 'Brass: Birmingham',
-    yearPublished: 2018,
-    thumbnail: 'https://cf.geekdo-images.com/small/img/tKJT3gJQ9HBWo2o6uPi6Wx2JFZo=/fit-in/200x150/pic3627169.jpg',
-    image: 'https://cf.geekdo-images.com/large/img/tKJT3gJQ9HBWo2o6uPi6Wx2JFZo=/fit-in/500x500/pic3627169.jpg',
-    minPlayers: 2,
-    maxPlayers: 4,
-    minPlayTime: 60,
-    maxPlayTime: 120,
-    userRating: 8.8,
-    communityRating: 8.6,
-    bggRank: 2,
-    numPlays: 8,
-  },
-]
-
-async function fetchWithRetry(username: string, maxAttempts: number = 5, delayMs: number = 3000): Promise<BoardGame[]> {
-  console.log(`[fetchWithRetry] Starting for username: ${username}`)
-
-  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-    try {
-      console.log(`[fetchWithRetry] Attempt ${attempt}/${maxAttempts}`)
-      const response = await fetch(
-        `https://boardgamegeek.com/xmlapi2/collection?username=${encodeURIComponent(username)}&stats=1&own=1`,
-        {
-          headers: {
-            'User-Agent': 'BoardGameCollectionViewer/1.0',
-          },
-        }
-      )
-
-      console.log(`[fetchWithRetry] Response status: ${response.status}`)
-
-      if (response.status === 200) {
-        const xml = await response.text()
-        console.log(`[fetchWithRetry] Parsing XML, length: ${xml.length}`)
-        return parseCollection(xml)
-      }
-
-      if (response.status === 202) {
-        if (attempt < maxAttempts) {
-          console.log(`[fetchWithRetry] Got 202, retrying in ${delayMs}ms...`)
-          await sleep(delayMs)
-          continue
-        } else {
-          throw new Error('Collection request still processing after 5 attempts')
-        }
-      }
-
-      if (response.status === 404) {
-        throw new Error('User not found or collection is private', { cause: 'NOT_FOUND' })
-      }
-
-      if (response.status === 401) {
-        console.log(`[fetchWithRetry] Got 401 for username: ${username}`)
-        // BGG API now requires Bearer authentication - return demo data for testing
-        if (username.toLowerCase() === 'demo' || username.toLowerCase() === 'deedeen') {
-          console.warn(`[fetchWithRetry] Returning demo data for testing`)
-          return DEMO_DATA
-        }
-        throw new Error('BoardGameGeek API currently requires authentication. Please try again later.', { cause: 'AUTH_REQUIRED' })
-      }
-
-      if (response.status === 503) {
-        throw new Error('BoardGameGeek API is temporarily unavailable')
-      }
-
-      throw new Error(`BGG API error: ${response.status}`)
-    } catch (error) {
-      console.error(`[fetchWithRetry] Catch block on attempt ${attempt}:`, error)
-      if (attempt === maxAttempts) {
-        throw error
-      }
-      const err = error as Error & { cause?: string }
-      if (err?.cause === 'NOT_FOUND' || err?.cause === 'AUTH_REQUIRED') {
-        throw error
-      }
-      await sleep(delayMs)
-    }
-  }
-
-  throw new Error('Failed to fetch collection')
-}
 
 export async function GET(
   _req: Request,
   { params }: { params: Promise<{ username: string }> }
 ) {
   try {
-    console.log('[GET] API request received')
     const { username } = await params
-
-    console.log(`[GET] Username: ${username}`)
 
     // Validate username to prevent injection
     if (!username || !/^[a-zA-Z0-9_-]+$/.test(username)) {
-      console.error('[GET] Invalid username format')
       return Response.json({ error: 'Invalid username' }, { status: 400 })
     }
 
-    console.log('[GET] Calling fetchWithRetry...')
-    const games = await fetchWithRetry(username)
-    console.log(`[GET] Success! Games count: ${games.length}`)
+    const games = await getCollectionData(username)
     return Response.json(games)
   } catch (error) {
+    if (error instanceof CollectionError) {
+      return Response.json({ error: error.message }, { status: error.status })
+    }
     const message = error instanceof Error ? error.message : 'Unknown error'
-
-    console.error('[GET] Error caught:', message)
-
-    if (message.includes('User not found') || message.includes('not found')) {
-      return Response.json({ error: 'User not found or collection is private' }, { status: 404 })
-    }
-
-    if (message.includes('temporarily unavailable')) {
-      return Response.json({ error: 'BoardGameGeek API is temporarily unavailable. Please try again later.' }, { status: 503 })
-    }
-
     console.error('Collection API error:', error)
     return Response.json({ error: message || 'Failed to fetch collection' }, { status: 500 })
   }
