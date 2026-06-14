@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import CollectionStats from '@/components/CollectionStats'
 import GameGrid from '@/components/GameGrid'
+import { getBaseUrl } from '@/lib/utils'
 
 export async function generateMetadata({
   params,
@@ -16,8 +17,8 @@ export async function generateMetadata({
 }
 
 async function getCollection(username: string) {
-  // Use relative path for internal API calls (works correctly on Vercel)
-  const url = `/api/collection/${encodeURIComponent(username)}`
+  // Use absolute URL for server-side fetch
+  const url = `${getBaseUrl()}/api/collection/${encodeURIComponent(username)}`
 
   console.log('[getCollection] Fetching from:', url)
 
