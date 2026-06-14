@@ -14,6 +14,13 @@ export interface BoardGame {
   numPlays: number
 }
 
+// A community game carries the same fields as a BoardGame plus who owns it
+// and its BGG categories (used by the /all and /session pages).
+export interface CommunityGame extends BoardGame {
+  categories: string[]
+  owners: string[]
+}
+
 export type SortField = 'name' | 'userRating' | 'communityRating' | 'bggRank' | 'numPlays' | 'minPlayTime'
 export type SortDirection = 'asc' | 'desc'
 

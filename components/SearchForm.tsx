@@ -3,7 +3,13 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-export default function SearchForm() {
+export default function SearchForm({
+  buttonLabel = 'View Collection',
+  placeholder = 'BoardGameGeek username…',
+}: {
+  buttonLabel?: string
+  placeholder?: string
+}) {
   const [username, setUsername] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
@@ -22,12 +28,12 @@ export default function SearchForm() {
         type="text"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-        placeholder="BoardGameGeek username…"
+        placeholder={placeholder}
         disabled={isLoading}
         autoComplete="off"
       />
       <button type="submit" className="btn" disabled={isLoading || !username.trim()}>
-        {isLoading ? 'Loading…' : 'View Collection'}
+        {isLoading ? 'Loading…' : buttonLabel}
       </button>
     </form>
   )

@@ -1,4 +1,5 @@
-import ComingSoon from '@/components/ComingSoon'
+import PageHeader from '@/components/PageHeader'
+import SearchForm from '@/components/SearchForm'
 
 export const metadata = {
   title: 'Update Collection',
@@ -6,11 +7,21 @@ export const metadata = {
 
 export default function UpdatePage() {
   return (
-    <ComingSoon
-      eyebrow="Update Collection"
-      title="Resync from BGG"
-      lead="Pull the latest owned games from a member's BoardGameGeek shelf."
-      body="BoardGameGeek's API now requires authentication, so collections are refreshed manually for now. This page will let members trigger a resync once accounts are in place."
-    />
+    <div className="wrap">
+      <PageHeader />
+
+      <header className="hero">
+        <div className="eyebrow">Update Collection</div>
+        <h1>Resync from BGG</h1>
+        <p>Enter a BoardGameGeek username to pull the latest owned games straight from their shelf.</p>
+        <div className="rule"></div>
+      </header>
+
+      <div className="panel">
+        <h2>Pull a collection</h2>
+        <p>Try <strong>Deedeen</strong> to load a real BoardGameGeek collection.</p>
+        <SearchForm buttonLabel="Update" placeholder="BoardGameGeek username…" />
+      </div>
+    </div>
   )
 }

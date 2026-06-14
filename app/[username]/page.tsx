@@ -1,9 +1,10 @@
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
 import { Metadata } from 'next'
+import PageHeader from '@/components/PageHeader'
 import CollectionStats from '@/components/CollectionStats'
-import GameGrid from '@/components/GameGrid'
+import CommunityList from '@/components/CommunityList'
 import { getCollectionData, CollectionError } from '@/lib/collection'
+import { CommunityGame } from '@/lib/types'
 
 export const dynamic = 'force-dynamic'
 
@@ -42,29 +43,28 @@ export default async function CollectionPage({
     throw error
   }
 
-  return (
-    <main className="min-h-screen bg-slate-900 px-4 py-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <Link href="/session" className="text-amber-400 hover:text-amber-300 text-sm font-semibold mb-4 inline-block">
-            ← Back to Search
-          </Link>
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-100">
-            {username}&apos;s Collection
-          </h1>
-        </div>
+  // Adapt BGG games to the shared community-list shape (no owners/categories)
+  const listGames: CommunityGame[] = games.map((g) => ({ ...g, categories: [], owners: [] }))
 
-        {games.length === 0 ? (
-          <div className="text-center py-12 bg-slate-800 rounded-lg border border-slate-700">
-            <p className="text-slate-400 text-lg">No games found in this collection</p>
-          </div>
-        ) : (
-          <>
-            <CollectionStats games={games} />
-            <GameGrid games={games} />
-          </>
-        )}
-      </div>
-    </main>
+  return (
+    <div className="wrap">
+      <PageHeader />
+
+      <header className="hero">
+        <div className="eyebrow">Collection</div>
+        <h1>{username}&apos;s shelf</h1>
+        <p>{games.length} games pulled from BoardGameGeek.</p>
+        <div className="rule"></div>
+      </header>
+
+      {games.length === 0 ? (
+        <div className="empty">No games found in this collection.</div>
+      ) : (
+        <>
+          <CollectionStats games={games} />
+          <CommunityList games={listGames} />
+        </>
+      )}
+    </div>
   )
 }

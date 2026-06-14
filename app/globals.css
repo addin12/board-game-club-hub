@@ -106,4 +106,90 @@ body::before{
   color:var(--gold-deep); background:color-mix(in srgb, var(--gold) 18%, transparent);
   border:1px solid color-mix(in srgb, var(--gold) 35%, transparent); border-radius:999px; padding:4px 10px; margin-bottom:14px}
 
+/* ---------- collection controls ---------- */
+.controls{display:flex; flex-direction:column; gap:14px; margin-top:22px;
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+  border-radius:14px; padding:18px}
+.controls .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+.field{display:flex; flex-direction:column; gap:6px}
+.field label{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:700}
+.input, .select{
+  font-family:var(--sans); font-size:14.5px; padding:10px 12px; border-radius:10px;
+  border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); color:#eae3d2;
+}
+.input::placeholder{color:#8aa093}
+.input:focus, .select:focus{outline:2px solid var(--gold); outline-offset:1px; border-color:transparent}
+.select option{color:#222}
+.grow-input{flex:1; min-width:200px}
+
+/* A–Z index */
+.alpha{display:flex; gap:6px; flex-wrap:wrap}
+.alpha button{
+  font-family:var(--sans); font-size:12.5px; font-weight:600; cursor:pointer;
+  padding:5px 9px; border-radius:8px; border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05); color:#cdd9cf; transition:background .12s,color .12s,border-color .12s;
+}
+.alpha button:hover{background:rgba(255,255,255,.1)}
+.alpha button[aria-pressed="true"]{background:linear-gradient(180deg,var(--gold),var(--gold-deep)); color:#2a1c06; border-color:transparent}
+
+.count{font-size:13px; color:#9fb3a4}
+.count strong{color:var(--gold)}
+
+/* ---------- game list (rows) ---------- */
+.glist{display:flex; flex-direction:column; gap:12px; margin-top:18px}
+.grow{
+  display:flex; gap:14px; align-items:center;
+  background:linear-gradient(180deg,var(--parchment),var(--parchment2));
+  color:var(--ink); border-radius:14px; padding:12px 16px 12px 12px;
+  box-shadow:0 8px 20px rgba(0,0,0,.22); border:1px solid rgba(0,0,0,.06);
+}
+.gpic{flex:0 0 auto; width:64px; height:64px; border-radius:10px; overflow:hidden; background:#d8ccae; position:relative}
+.gpic img{object-fit:cover}
+.gmain{flex:1; min-width:0}
+.gname{font-family:var(--display); font-weight:600; font-size:16px; color:var(--ink); text-decoration:none; line-height:1.2}
+.gname:hover{color:var(--gold-deep)}
+.gyear{color:var(--ink-soft); font-weight:500; font-size:13px}
+.pills{display:flex; gap:6px; flex-wrap:wrap; margin-top:6px}
+.pill{font-size:11.5px; font-weight:600; padding:2px 9px; border-radius:999px; background:rgba(36,31,21,.07); color:var(--ink-soft); border:1px solid var(--line)}
+.opill{font-size:11.5px; font-weight:700; padding:2px 9px; border-radius:999px;
+  background:color-mix(in srgb, var(--gold) 22%, transparent); color:var(--gold-deep);
+  border:1px solid color-mix(in srgb, var(--gold) 40%, transparent)}
+.gstats{flex:0 0 auto; display:flex; gap:16px; align-items:center}
+.stat{display:flex; align-items:center; gap:5px; font-size:13.5px; font-weight:600; color:var(--ink); white-space:nowrap}
+.stat svg{width:14px; height:14px; opacity:.7}
+.stat.rating{color:var(--gold-deep)}
+@media(max-width:680px){
+  .gstats{gap:10px; flex-wrap:wrap; justify-content:flex-end}
+  .grow{flex-wrap:wrap}
+  .gmain{flex-basis:60%}
+}
+
+/* ---------- session player picker ---------- */
+.players{display:flex; flex-direction:column; gap:10px}
+.playerrow{display:flex; gap:10px; align-items:center}
+.playerrow .select{flex:1}
+.iconbtn{flex:0 0 auto; width:40px; height:40px; border-radius:10px; border:0; cursor:pointer;
+  background:linear-gradient(180deg,var(--gold),var(--gold-deep)); color:#2a1c06; font-size:20px; font-weight:700;
+  display:grid; place-items:center; line-height:1}
+.iconbtn.ghost{background:rgba(255,255,255,.06); color:#cdd9cf; border:1px solid rgba(255,255,255,.14)}
+.iconbtn:hover{filter:brightness(1.06)}
+.chips{display:flex; gap:8px; flex-wrap:wrap}
+.chip{display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600;
+  padding:6px 8px 6px 12px; border-radius:999px; background:rgba(255,255,255,.06); color:#eae3d2; border:1px solid rgba(255,255,255,.14)}
+.chip button{background:none; border:0; color:#e3a; cursor:pointer; font-size:15px; line-height:1; color:#d98}
+.textarea{font-family:var(--sans); font-size:14.5px; padding:12px 14px; border-radius:10px; min-height:84px; resize:vertical;
+  border:1px solid var(--line); background:#fffdf7; color:var(--ink); width:100%}
+.textarea:focus{outline:2px solid var(--gold); outline-offset:1px; border-color:transparent}
+
+.empty{text-align:center; padding:40px 20px; color:#9fb3a4}
+
+/* ---------- stat cards ---------- */
+.statgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:22px}
+@media(max-width:680px){.statgrid{grid-template-columns:repeat(2,1fr)}}
+.statcard{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:16px}
+.statcard .k{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#9fb3a4; font-weight:700}
+.statcard .v{font-family:var(--display); font-size:26px; font-weight:600; color:#f7e6c8; margin-top:6px; line-height:1.1}
+.statcard .v.gold{color:var(--gold)}
+.statcard .sub{font-size:12.5px; color:#9fb3a4; margin-top:2px}
+
 @media(prefers-reduced-motion:reduce){.tile,.tile .go{transition:none}}

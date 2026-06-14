@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import PageHeader from '@/components/PageHeader'
 
 export default function Error({
   error,
@@ -10,48 +11,24 @@ export default function Error({
   unstable_retry: () => void
 }) {
   return (
-    <main className="min-h-screen bg-slate-900 px-4 py-8 flex items-center justify-center">
-      <div className="max-w-lg text-center">
-        <div className="bg-slate-800 border border-red-600/30 rounded-lg p-8 mb-6">
-          <h1 className="text-2xl font-bold text-red-400 mb-2">Failed to Load Collection</h1>
-          <p className="text-slate-300 mb-2">{error.message || 'Unknown error occurred'}</p>
+    <div className="wrap">
+      <PageHeader />
 
-          {error.digest && (
-            <p className="text-xs text-slate-500 mb-4 font-mono">Error ID: {error.digest}</p>
-          )}
+      <header className="hero">
+        <div className="eyebrow">Collection</div>
+        <h1>Couldn&apos;t load that shelf</h1>
+        <div className="rule"></div>
+      </header>
 
-          {error.message.includes('User not found') && (
-            <p className="text-sm text-slate-400">Please check the username and try again.</p>
-          )}
-
-          {error.message.includes('temporarily unavailable') && (
-            <p className="text-sm text-slate-400">
-              BoardGameGeek API is experiencing issues. Please try again in a few moments.
-            </p>
-          )}
-
-          {!error.message && (
-            <p className="text-sm text-slate-400">
-              An unexpected error occurred. Check the browser console for details.
-            </p>
-          )}
-        </div>
-
-        <div className="flex gap-3 justify-center flex-wrap">
-          <button
-            onClick={() => unstable_retry()}
-            className="px-6 py-3 bg-amber-600 hover:bg-amber-700 text-amber-50 font-semibold rounded-lg transition-colors"
-          >
-            Try Again
-          </button>
-          <Link
-            href="/"
-            className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-slate-100 font-semibold rounded-lg transition-colors"
-          >
-            Back Home
-          </Link>
+      <div className="panel">
+        <h2>Something went wrong</h2>
+        <p>{error.message || 'An unexpected error occurred while loading this collection.'}</p>
+        {error.digest && <p style={{ fontSize: 12, opacity: 0.6 }}>Error ID: {error.digest}</p>}
+        <div className="search">
+          <button type="button" className="btn" onClick={() => unstable_retry()}>Try again</button>
+          <Link className="backlink" href="/" style={{ alignSelf: 'center' }}>← Back to menu</Link>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

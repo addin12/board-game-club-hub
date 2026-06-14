@@ -1,43 +1,35 @@
 import { BoardGame } from '@/lib/types'
 
-interface CollectionStatsProps {
-  games: BoardGame[]
-}
-
-export default function CollectionStats({ games }: CollectionStatsProps) {
+export default function CollectionStats({ games }: { games: BoardGame[] }) {
   const totalGames = games.length
-  const totalPlays = games.reduce((sum, g) => sum + g.numPlays, 0)
-  const mostPlayed = games.reduce((max, g) => (g.numPlays > max.numPlays ? g : max), games[0])
-  const avgRating = (games.reduce((sum, g) => sum + g.communityRating, 0) / totalGames).toFixed(1)
-  const ratedGames = games.filter((g) => g.userRating !== null).length
-  const avgUserRating = (games.filter((g) => g.userRating !== null).reduce((sum, g) => sum + (g.userRating || 0), 0) / (ratedGames || 1)).toFixed(1)
-
-  const stats = [
-    { label: 'Total Games', value: totalGames, color: 'text-blue-400' },
-    { label: 'Total Plays', value: totalPlays, color: 'text-green-400' },
-    { label: 'Avg Rating', value: `${avgRating}★`, color: 'text-amber-400' },
-    { label: 'Your Ratings', value: ratedGames, color: 'text-purple-400' },
-    { label: 'Your Avg', value: ratedGames > 0 ? `${avgUserRating}★` : 'N/A', color: 'text-pink-400' },
-  ]
+  const rated = games.filter((g) => g.communityRating > 0)
+  const avgRating = rated.length
+    ? (rated.reduce((s, g) => s + g.communityRating, 0) / rated.length).toFixed(1)
+    : '—'
+  const topRated = rated.reduce<BoardGame | null>((best, g) => (!best || g.communityRating > best.communityRating ? g : best), null)
+  const minP = Math.min(...games.map((g) => g.minPlayers))
+  const maxP = Math.max(...games.map((g) => g.maxPlayers))
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
-      {stats.map((stat) => (
-        <div key={stat.label} className="bg-slate-800 rounded-lg p-4 border border-slate-700">
-          <p className="text-xs text-slate-400 mb-2">{stat.label}</p>
-          <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
-        </div>
-      ))}
-
-      {mostPlayed && (
-        <div className="md:col-span-5 bg-slate-800 rounded-lg p-4 border border-amber-600/30">
-          <p className="text-xs text-slate-400 mb-1">Most Played</p>
-          <p className="font-semibold text-amber-400">{mostPlayed.name}</p>
-          <p className="text-sm text-slate-400">
-            {mostPlayed.numPlays} play{mostPlayed.numPlays !== 1 ? 's' : ''}
-          </p>
-        </div>
-      )}
+    <div className="statgrid">
+      <div className="statcard">
+        <div className="k">Games</div>
+        <div className="v">{totalGames}</div>
+      </div>
+      <div className="statcard">
+        <div className="k">Avg Rating</div>
+        <div className="v gold">{avgRating}{avgRating !== '—' && '★'}</div>
+      </div>
+      <div className="statcard">
+        <div className="k">Plays</div>
+        <div className="v">{minP}–{maxP}</div>
+        <div className="sub">players supported</div>
+      </div>
+      <div className="statcard">
+        <div className="k">Top Rated</div>
+        <div className="v" style={{ fontSize: 18 }}>{topRated?.name ?? '—'}</div>
+        {topRated && <div className="sub">{topRated.communityRating.toFixed(1)}★ on BGG</div>}
+      </div>
     </div>
   )
 }
