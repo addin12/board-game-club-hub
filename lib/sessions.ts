@@ -1,4 +1,4 @@
-import { getDb } from './firebase'
+import { getSupabase } from './supabase'
 
 export type RsvpStatus = 'in' | 'out'
 
@@ -27,7 +27,7 @@ export interface CreateSessionInput {
   game?: GameRef | null
 }
 
-const COLLECTION = 'sessions'
+const TABLE = 'sessions'
 
 // ---------- in-memory fallback (survives HMR via globalThis) ----------
 const globalForSessions = globalThis as unknown as { __sessions?: Map<string, GameSession> }
@@ -45,43 +45,64 @@ function byDateAsc(a: GameSession, b: GameSession): number {
   return new Date(a.date).getTime() - new Date(b.date).getTime()
 }
 
-// ---------- public API (auto-selects Firestore or in-memory) ----------
+// ---------- Supabase row mapping ----------
+interface SessionRow {
+  id: string
+  date: string
+  description: string | null
+  host: string
+  players: string[] | null
+  game: GameRef | null
+  rsvps: Record<string, RsvpStatus> | null
+  created_at: string
+}
+
+function rowToSession(row: SessionRow): GameSession {
+  return {
+    id: row.id,
+    date: new Date(row.date).toISOString(),
+    description: row.description ?? '',
+    host: row.host,
+    players: row.players ?? [],
+    game: row.game ?? null,
+    rsvps: row.rsvps ?? {},
+    createdAt: new Date(row.created_at).getTime(),
+  }
+}
+
+// ---------- public API (auto-selects Supabase or in-memory) ----------
 
 export async function listSessions(): Promise<GameSession[]> {
-  const db = getDb()
-  if (!db) {
+  const sb = getSupabase()
+  if (!sb) {
     return Array.from(memStore.values()).filter(isUpcoming).sort(byDateAsc)
   }
 
-  const { collection, getDocs, query, orderBy } = await import('firebase/firestore')
-  const snap = await getDocs(query(collection(db, COLLECTION), orderBy('date', 'asc')))
-  return snap.docs
-    .map((d) => ({ id: d.id, ...(d.data() as Omit<GameSession, 'id'>) }))
-    .filter(isUpcoming)
+  const { data, error } = await sb.from(TABLE).select('*').order('date', { ascending: true })
+  if (error) throw new Error(error.message)
+  return (data as SessionRow[]).map(rowToSession).filter(isUpcoming)
 }
 
 export async function createSession(input: CreateSessionInput): Promise<GameSession> {
-  const session: Omit<GameSession, 'id'> = {
-    date: input.date,
+  const base = {
+    date: new Date(input.date).toISOString(),
     description: input.description.trim(),
     host: input.host,
     players: input.players,
     game: input.game ?? null,
-    rsvps: { [input.host]: 'in' }, // the host is in by default
-    createdAt: Date.now(),
+    rsvps: { [input.host]: 'in' as RsvpStatus }, // the host is in by default
   }
 
-  const db = getDb()
-  if (!db) {
-    const id = crypto.randomUUID()
-    const full = { id, ...session }
-    memStore.set(id, full)
+  const sb = getSupabase()
+  if (!sb) {
+    const full: GameSession = { id: crypto.randomUUID(), ...base, createdAt: Date.now() }
+    memStore.set(full.id, full)
     return full
   }
 
-  const { collection, addDoc } = await import('firebase/firestore')
-  const ref = await addDoc(collection(db, COLLECTION), session)
-  return { id: ref.id, ...session }
+  const { data, error } = await sb.from(TABLE).insert(base).select().single()
+  if (error) throw new Error(error.message)
+  return rowToSession(data as SessionRow)
 }
 
 export async function setRsvp(
@@ -89,9 +110,9 @@ export async function setRsvp(
   name: string,
   status: RsvpStatus | 'clear'
 ): Promise<GameSession | null> {
-  const db = getDb()
+  const sb = getSupabase()
 
-  if (!db) {
+  if (!sb) {
     const s = memStore.get(id)
     if (!s) return null
     if (status === 'clear') delete s.rsvps[name]
@@ -100,14 +121,16 @@ export async function setRsvp(
     return s
   }
 
-  const { doc, getDoc, updateDoc, deleteField } = await import('firebase/firestore')
-  const ref = doc(db, COLLECTION, id)
-  const snap = await getDoc(ref)
-  if (!snap.exists()) return null
+  // read-modify-write the rsvps map (fine for this app's low traffic)
+  const { data: existing, error: readErr } = await sb.from(TABLE).select('*').eq('id', id).maybeSingle()
+  if (readErr) throw new Error(readErr.message)
+  if (!existing) return null
 
-  await updateDoc(ref, {
-    [`rsvps.${name}`]: status === 'clear' ? deleteField() : status,
-  })
-  const updated = await getDoc(ref)
-  return { id: updated.id, ...(updated.data() as Omit<GameSession, 'id'>) }
+  const current = (existing as SessionRow).rsvps ?? {}
+  if (status === 'clear') delete current[name]
+  else current[name] = status
+
+  const { data, error } = await sb.from(TABLE).update({ rsvps: current }).eq('id', id).select().single()
+  if (error) throw new Error(error.message)
+  return rowToSession(data as SessionRow)
 }

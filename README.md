@@ -34,7 +34,7 @@ A felt-table-themed web app that brings a board game community's collections tog
 - **Tailwind CSS v4** + a hand-built felt/parchment/gold design system in [`app/globals.css`](app/globals.css)
 - **[Fraunces](https://fonts.google.com/specimen/Fraunces)** display font via `next/font`
 - **BoardGameGeek** XML API + the public `api.geekdo.com` JSON API for high-resolution artwork
-- **[Firebase / Firestore](https://firebase.google.com/products/firestore)** for persistent sessions + RSVPs (optional — falls back to an in-memory store; see [DEPLOYMENT.md](DEPLOYMENT.md))
+- **[Supabase](https://supabase.com)** (Postgres) for persistent sessions + RSVPs (optional — falls back to an in-memory store; see [DEPLOYMENT.md](DEPLOYMENT.md))
 - **[Playwright](https://playwright.dev)** for the data-scraping scripts
 - Deployed free on **[Vercel](https://vercel.com)**
 
@@ -127,7 +127,7 @@ node scripts/build-deedeen.mjs
 - [x] All Collection — search, A–Z index, category filter, owner badges
 - [x] Session builder — "I'm playing with" pooled-collection mechanic
 - [x] High-resolution, non-pixelated game artwork
-- [x] Call a session + RSVP schedule (Firestore-backed, with an in-memory dev fallback)
+- [x] Call a session + RSVP schedule (Supabase-backed, with an in-memory dev fallback)
 - [x] Automated weekly refresh of the community data ([GitHub Action](.github/workflows/refresh-community.yml))
 - [ ] Member accounts + self-service collection sync
 - [ ] WhatsApp / email notifications to the play group

@@ -46,45 +46,53 @@ The community library and sample collections are baked in as static data
 so the app runs with **no env vars at all**.
 
 To make **sessions + RSVPs persistent** (the `/session` and `/schedule` pages), add a free
-Firebase/Firestore backend (see below). Without it, the app falls back to an in-memory store
-that works locally but resets on restart and isn't shared across serverless instances.
+Supabase backend (see below). Without it, the app falls back to an in-memory store that works
+locally but resets on restart and isn't shared across serverless instances.
 
-## Sessions persistence — free Firebase setup
+## Sessions persistence — free Supabase setup
 
-Firestore's **Spark** plan is free, needs no credit card, and never pauses. Setup takes ~3 minutes:
+Supabase's free tier needs no credit card. Setup takes ~3 minutes:
 
-1. Create a project at [console.firebase.google.com](https://console.firebase.google.com).
-2. **Build → Firestore Database → Create database** (start in *test mode*, or use the rules below).
-3. **Project settings → General → Your apps → Web app** (`</>`), register an app, and copy the
-   config values.
-4. Add these to `.env.local` locally (see [`.env.example`](.env.example)) and to your Vercel
+1. Create a project at [supabase.com](https://supabase.com) (pick a region near your users).
+2. Open the **SQL Editor** and run this to create the table:
+
+   ```sql
+   create table sessions (
+     id uuid primary key default gen_random_uuid(),
+     date timestamptz not null,
+     description text default '',
+     host text not null,
+     players jsonb default '[]'::jsonb,
+     game jsonb,
+     rsvps jsonb default '{}'::jsonb,
+     created_at timestamptz default now()
+   );
+
+   -- Small trusted group: allow anon read/write to sessions only.
+   alter table sessions enable row level security;
+   create policy "sessions open" on sessions
+     for all using (true) with check (true);
+   ```
+
+   > The open policy suits a small private group. Tighten it (require auth, validate fields)
+   > if the site becomes public.
+
+3. In **Project Settings → API**, copy the **Project URL** and the **anon public** key.
+4. Add them to `.env.local` locally (see [`.env.example`](.env.example)) and to your Vercel
    project's **Settings → Environment Variables**:
 
    ```env
-   NEXT_PUBLIC_FIREBASE_API_KEY=...
-   NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
-   NEXT_PUBLIC_FIREBASE_APP_ID=...
+   NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
    ```
 
-   These are **not secrets** — the Firebase web config is meant to be public; access is governed
-   by Firestore security rules.
+   The anon key is safe to expose to the browser by design; access is governed by the RLS policy above.
 
-5. Suggested Firestore rules for a small trusted group (only the `sessions` collection is used):
+> ⏰ **Idle pause:** free Supabase projects pause after ~7 days with **no** database activity. The
+> [`keep-supabase-awake`](.github/workflows/keep-supabase-awake.yml) Action pings it every few days
+> to prevent that — add `SUPABASE_URL` and `SUPABASE_ANON_KEY` as repository secrets to enable it.
 
-   ```text
-   rules_version = '2';
-   service cloud.firestore {
-     match /databases/{database}/documents {
-       match /sessions/{id} {
-         allow read, write: if true;
-       }
-     }
-   }
-   ```
-
-   > Tighten these later if the site becomes public (e.g. require auth, validate fields).
-
-Redeploy and the app automatically switches from the in-memory store to Firestore — no code change.
+Redeploy and the app automatically switches from the in-memory store to Supabase — no code change.
 
 > ℹ️ **Why no live BGG calls in production?** BoardGameGeek's XML API now requires authentication
 > and returns `401` to anonymous requests. Collections are therefore gathered ahead of time via
