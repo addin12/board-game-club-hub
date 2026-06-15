@@ -1,5 +1,3 @@
-<div align="center">
-
 # 🎲 BBGC — Bekasi Board Game Community Collection Hub
 
 **Pool the community's shelves, see what fits the table tonight, and call out the next session.**
@@ -10,14 +8,12 @@ A felt-table-themed web app that brings a board game community's collections tog
 
 ![Home](docs/screenshots/home.png)
 
-</div>
-
 ---
 
 ## ✨ What it does
 
 | Page | What you get |
-|------|--------------|
+| ---- | ------------ |
 | **Home** | A tile menu into every section, styled like a green felt game table. |
 | **All Collection** (`/all`) | The whole community library — **109 games across 16 members** — with live search, an A–Z index, category filtering, and an owner badge on every game. |
 | **Session Collection** (`/session`) | The **"I'm playing with…"** mechanic: add the players at your table and instantly pool their shelves into one list of games you can actually play tonight — with a toggle to show only games that fit your group size. |

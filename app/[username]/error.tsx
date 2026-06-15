@@ -23,10 +23,10 @@ export default function Error({
       <div className="panel">
         <h2>Something went wrong</h2>
         <p>{error.message || 'An unexpected error occurred while loading this collection.'}</p>
-        {error.digest && <p style={{ fontSize: 12, opacity: 0.6 }}>Error ID: {error.digest}</p>}
+        {error.digest && <p className="errid">Error ID: {error.digest}</p>}
         <div className="search">
           <button type="button" className="btn" onClick={() => unstable_retry()}>Try again</button>
-          <Link className="backlink" href="/" style={{ alignSelf: 'center' }}>← Back to menu</Link>
+          <Link className="backlink" href="/">← Back to menu</Link>
         </div>
       </div>
     </div>

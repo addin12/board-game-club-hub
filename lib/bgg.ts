@@ -36,23 +36,6 @@ interface ParsedCollection {
   items?: { item: ParsedItem | ParsedItem[] }
 }
 
-export async function fetchCollection(username: string): Promise<string> {
-  const url = `https://boardgamegeek.com/xmlapi2/collection?username=${encodeURIComponent(username)}&stats=1&own=1`
-
-  const response = await fetch(url, {
-    headers: {
-      'User-Agent': 'BoardGameCollectionViewer/1.0',
-    },
-  })
-
-  if (response.status !== 200) {
-    const text = await response.text()
-    throw new Error(`BGG API error: ${response.status} - ${text}`)
-  }
-
-  return response.text()
-}
-
 export function parseCollection(xml: string): BoardGame[] {
   const parsed = parser.parse(xml) as ParsedCollection
 

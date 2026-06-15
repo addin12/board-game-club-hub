@@ -69,7 +69,7 @@ export default function SessionBuilder({
         )}
 
         {selected.length > 0 && (
-          <label className="count" style={{ display: 'flex', gap: 8, alignItems: 'center', cursor: 'pointer' }}>
+          <label className="count fitrow">
             <input type="checkbox" checked={fitGroup} onChange={(e) => setFitGroup(e.target.checked)} />
             Only show games that fit {selected.length} player{selected.length === 1 ? '' : 's'}
           </label>
@@ -80,7 +80,7 @@ export default function SessionBuilder({
         <div className="empty">Add the players at your table to see what you can play tonight.</div>
       ) : (
         <>
-          <div className="count" style={{ marginTop: 18 }}>
+          <div className="count pool-count">
             <strong>{pool.length}</strong> game{pool.length === 1 ? '' : 's'} on the table
           </div>
 
@@ -90,7 +90,7 @@ export default function SessionBuilder({
             ))}
           </div>
 
-          <div className="panel" style={{ maxWidth: 'none', marginTop: 22 }}>
+          <div className="panel full session-call">
             <h2>Call the session</h2>
             <p>Add a note for the group — date, place, or which game you&apos;re locking in.</p>
             <textarea

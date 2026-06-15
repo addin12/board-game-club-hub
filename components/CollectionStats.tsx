@@ -27,7 +27,7 @@ export default function CollectionStats({ games }: { games: BoardGame[] }) {
       </div>
       <div className="statcard">
         <div className="k">Top Rated</div>
-        <div className="v" style={{ fontSize: 18 }}>{topRated?.name ?? '—'}</div>
+        <div className="v small">{topRated?.name ?? '—'}</div>
         {topRated && <div className="sub">{topRated.communityRating.toFixed(1)}★ on BGG</div>}
       </div>
     </div>

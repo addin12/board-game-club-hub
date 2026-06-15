@@ -6,19 +6,19 @@ export default function Loading() {
       <PageHeader />
       <header className="hero">
         <div className="eyebrow">Collection</div>
-        <h1 style={{ opacity: 0.5 }}>Loading shelf…</h1>
+        <h1 className="skeleton-title">Loading shelf…</h1>
         <div className="rule"></div>
       </header>
 
       <div className="statgrid">
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="statcard" style={{ height: 84, opacity: 0.5 }} />
+          <div key={i} className="statcard skeleton skeleton-stat" />
         ))}
       </div>
 
       <div className="glist">
         {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="grow" style={{ height: 88, opacity: 0.4 }} />
+          <div key={i} className="grow skeleton skeleton-row" />
         ))}
       </div>
     </div>

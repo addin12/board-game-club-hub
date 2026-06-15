@@ -57,8 +57,13 @@ body::before{
 .tile::before{content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:var(--accent,var(--gold))}
 .tile:hover{transform:translateY(-3px); box-shadow:0 16px 34px rgba(0,0,0,.32)}
 .tile:focus-visible{outline:2px solid var(--gold); outline-offset:3px}
+/* per-tile accent + a precomputed soft tint (avoids color-mix for wide support) */
+.tile.t-session{--accent:var(--c-session); --accent-soft:rgba(214,69,69,.16)}
+.tile.t-all{--accent:var(--c-all); --accent-soft:rgba(47,128,184,.16)}
+.tile.t-update{--accent:var(--c-update); --accent-soft:rgba(63,155,84,.16)}
+.tile.t-sched{--accent:var(--c-sched); --accent-soft:rgba(227,178,60,.16)}
 .ic{flex:0 0 auto; width:42px; height:42px; border-radius:10px; display:grid; place-items:center;
-    background:color-mix(in srgb, var(--accent) 16%, transparent)}
+    background:var(--accent-soft, rgba(200,144,52,.16))}
 .ic svg{width:24px; height:24px; stroke:var(--accent); fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
 .tile .body{flex:1; min-width:0}
 .tile h2{font-family:var(--display); font-weight:600; font-size:17px; margin:1px 0 4px; color:var(--ink)}
@@ -103,8 +108,8 @@ body::before{
 
 /* ---------- coming-soon badge ---------- */
 .soon{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
-  color:var(--gold-deep); background:color-mix(in srgb, var(--gold) 18%, transparent);
-  border:1px solid color-mix(in srgb, var(--gold) 35%, transparent); border-radius:999px; padding:4px 10px; margin-bottom:14px}
+  color:var(--gold-deep); background:rgba(200,144,52,.18);
+  border:1px solid rgba(200,144,52,.35); border-radius:999px; padding:4px 10px; margin-bottom:14px}
 
 /* ---------- collection controls ---------- */
 .controls{display:flex; flex-direction:column; gap:14px; margin-top:22px;
@@ -152,8 +157,8 @@ body::before{
 .pills{display:flex; gap:6px; flex-wrap:wrap; margin-top:6px}
 .pill{font-size:11.5px; font-weight:600; padding:2px 9px; border-radius:999px; background:rgba(36,31,21,.07); color:var(--ink-soft); border:1px solid var(--line)}
 .opill{font-size:11.5px; font-weight:700; padding:2px 9px; border-radius:999px;
-  background:color-mix(in srgb, var(--gold) 22%, transparent); color:var(--gold-deep);
-  border:1px solid color-mix(in srgb, var(--gold) 40%, transparent)}
+  background:rgba(200,144,52,.22); color:var(--gold-deep);
+  border:1px solid rgba(200,144,52,.40)}
 .gstats{flex:0 0 auto; display:flex; gap:16px; align-items:center}
 .stat{display:flex; align-items:center; gap:5px; font-size:13.5px; font-weight:600; color:var(--ink); white-space:nowrap}
 .stat svg{width:14px; height:14px; opacity:.7}
@@ -176,7 +181,7 @@ body::before{
 .chips{display:flex; gap:8px; flex-wrap:wrap}
 .chip{display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600;
   padding:6px 8px 6px 12px; border-radius:999px; background:rgba(255,255,255,.06); color:#eae3d2; border:1px solid rgba(255,255,255,.14)}
-.chip button{background:none; border:0; color:#e3a; cursor:pointer; font-size:15px; line-height:1; color:#d98}
+.chip button{background:none; border:0; color:#d98; cursor:pointer; font-size:15px; line-height:1}
 .textarea{font-family:var(--sans); font-size:14.5px; padding:12px 14px; border-radius:10px; min-height:84px; resize:vertical;
   border:1px solid var(--line); background:#fffdf7; color:var(--ink); width:100%}
 .textarea:focus{outline:2px solid var(--gold); outline-offset:1px; border-color:transparent}
@@ -190,6 +195,21 @@ body::before{
 .statcard .k{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#9fb3a4; font-weight:700}
 .statcard .v{font-family:var(--display); font-size:26px; font-weight:600; color:#f7e6c8; margin-top:6px; line-height:1.1}
 .statcard .v.gold{color:var(--gold)}
+.statcard .v.small{font-size:18px}
 .statcard .sub{font-size:12.5px; color:#9fb3a4; margin-top:2px}
+
+/* ---------- helpers ---------- */
+.bar.between{justify-content:space-between}
+.fitrow{display:flex; gap:8px; align-items:center; cursor:pointer}
+.pool-count{margin-top:18px}
+.panel.full{max-width:none}
+.session-call{margin-top:22px}
+.errid{font-size:12px; opacity:.6}
+.search .backlink{align-self:center}
+/* loading skeletons */
+.skeleton{opacity:.4}
+.skeleton-title{opacity:.5}
+.skeleton-stat{height:84px}
+.skeleton-row{height:88px}
 
 @media(prefers-reduced-motion:reduce){.tile,.tile .go{transition:none}}
