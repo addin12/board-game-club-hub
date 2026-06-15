@@ -128,8 +128,8 @@ node scripts/build-deedeen.mjs
 - [x] Session builder — "I'm playing with" pooled-collection mechanic
 - [x] High-resolution, non-pixelated game artwork
 - [x] Call a session + RSVP schedule (Firestore-backed, with an in-memory dev fallback)
+- [x] Automated weekly refresh of the community data ([GitHub Action](.github/workflows/refresh-community.yml))
 - [ ] Member accounts + self-service collection sync
-- [ ] Automated/scheduled refresh of the community data
 - [ ] WhatsApp / email notifications to the play group
 
 ---
