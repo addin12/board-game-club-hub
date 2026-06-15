@@ -11,9 +11,9 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   title: {
     template: '%s | BBGC',
-    default: 'BBGC — Bekasi Board Game Community',
+    default: 'BBGC — Barudak Board Game Club',
   },
-  description: "Boardgamers' Planet, Bekasi — the Bekasi Board Game Community collection hub.",
+  description: "Boardgamers' Planet, Bekasi — the Barudak Board Game Club collection hub.",
 };
 
 export default function RootLayout({

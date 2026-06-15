@@ -14,7 +14,7 @@ export default function AllCollectionPage() {
       <header className="hero">
         <div className="eyebrow">All Collection</div>
         <h1>The community shelf</h1>
-        <p>{COMMUNITY_GAMES.length} games owned across {MEMBERS.length} members — the whole Bekasi Board Game Community library in one place.</p>
+        <p>{COMMUNITY_GAMES.length} games owned across {MEMBERS.length} members — the whole Barudak Board Game Club library in one place.</p>
         <div className="rule"></div>
       </header>
 

@@ -1,4 +1,4 @@
-# 🎲 BBGC — Bekasi Board Game Community Collection Hub
+# 🎲 BBGC — Barudak Board Game Club Collection Hub
 
 **Pool the community's shelves, see what fits the table tonight, and call out the next session.**
 
@@ -147,4 +147,4 @@ MIT — use it for your own community, or as a template for your own collection 
 ## 🙏 Credits
 
 - Board game data & artwork from **[BoardGameGeek](https://boardgamegeek.com)**
-- Inspired by the **[Bekasi Board Game Community](https://bekasiboardgame.my.id)**
+- Inspired by the **[Barudak Board Game Club](https://bekasiboardgame.my.id)**

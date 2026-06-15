@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'BBGC — Bekasi Board Game Community',
+  title: 'BBGC — Barudak Board Game Club',
 }
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
 
       <header className="hero">
         <div className="eyebrow">Welcome</div>
-        <h1>Bekasi Board Game Community</h1>
+        <h1>Barudak Board Game Club</h1>
         <p>Boardgamers&apos; planet, Bekasi. Pool the community&apos;s shelves, see what fits the table tonight, and call out the next session.</p>
         <div className="rule"></div>
       </header>
@@ -49,7 +49,7 @@ export default function Home() {
 
       <footer className="foot">
         <span className="v">BBGC Collection v0.7.5</span>
-        <span>©2022–2024 Bekasi Board Game Community</span>
+        <span>©2022–2024 Barudak Board Game Club</span>
       </footer>
     </div>
   )
