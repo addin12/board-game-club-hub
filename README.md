@@ -148,4 +148,4 @@ MIT — use it for your own community, or as a template for your own collection 
 ## 🙏 Credits
 
 - Board game data & artwork from **[BoardGameGeek](https://boardgamegeek.com)**
-- Inspired by the **[Barudak Board Game Club](https://bekasiboardgame.my.id)**
+- Built for the Barudak Board Game Club
