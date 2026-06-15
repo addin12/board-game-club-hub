@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: '%s | BBGC',
     default: 'BBGC — Barudak Board Game Club',
   },
-  description: "Boardgamers' Planet, Bekasi — the Barudak Board Game Club collection hub.",
+  description: "Boardgamers' Planet — the Barudak Board Game Club collection hub.",
 };
 
 export default function RootLayout({

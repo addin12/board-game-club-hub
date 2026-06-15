@@ -17,7 +17,7 @@ export default function Home() {
       <header className="hero">
         <div className="eyebrow">Welcome</div>
         <h1>Barudak Board Game Club</h1>
-        <p>Boardgamers&apos; planet, Bekasi. Pool the community&apos;s shelves, see what fits the table tonight, and call out the next session.</p>
+        <p>Boardgamers&apos; planet. Pool the community&apos;s shelves, see what fits the table tonight, and call out the next session.</p>
         <div className="rule"></div>
       </header>
 
