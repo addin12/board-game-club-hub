@@ -5,7 +5,7 @@ import { CommunityGame } from '@/lib/types'
 import GameRow from './GameRow'
 
 // Show the library in comfortable pages instead of one endless scroll.
-const PAGE_SIZE = 24
+const PAGE_SIZE = 10
 
 // Alphabetical ranges mirror the real BBGC /all index
 const RANGES: { label: string; test: (c: string) => boolean }[] = [
