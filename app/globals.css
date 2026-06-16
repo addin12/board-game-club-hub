@@ -180,6 +180,17 @@ body::before{
   .gmain{flex-basis:60%}
 }
 
+/* ---------- pagination ---------- */
+.pager{display:flex; align-items:center; justify-content:center; gap:16px; margin-top:22px}
+.pgbtn{
+  font-family:var(--sans); font-size:14px; font-weight:700; cursor:pointer;
+  padding:9px 16px; border-radius:10px; border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06); color:#eae3d2; transition:background .12s,border-color .12s;
+}
+.pgbtn:hover:not(:disabled){background:rgba(255,255,255,.12)}
+.pgbtn:disabled{opacity:.4; cursor:not-allowed}
+.pginfo{font-size:13.5px; font-weight:600; color:#9fb3a4; min-width:96px; text-align:center}
+
 /* ---------- session player picker ---------- */
 .players{display:flex; flex-direction:column; gap:10px}
 .playerrow{display:flex; gap:10px; align-items:center}
