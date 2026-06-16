@@ -55,6 +55,15 @@ export default function HelpPage() {
         </div>
 
         <div className="helpcard">
+          <h3>📥 Import your BGG collection</h3>
+          <p>
+            In <Link href="/collection?tab=bgg">Collection → Add from BGG</Link>, export your collection from BoardGameGeek
+            (your collection page → <strong>Export</strong> → CSV) and <strong>upload the file</strong>. It shows your whole
+            shelf with cover art — and works even while BGG&apos;s API is down.
+          </p>
+        </div>
+
+        <div className="helpcard">
           <h3>📊 See the club&apos;s stats</h3>
           <p>
             <Link href="/community">Community Stats</Link> shows the biggest collectors, the most-owned games, and the

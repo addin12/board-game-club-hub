@@ -80,9 +80,9 @@ export default function CommunityList({
           )}
         </div>
         <div className="alpha">
-          <button type="button" aria-pressed={range === null} onClick={() => setRange(null)}>All</button>
+          <button type="button" className={range === null ? 'is-active' : ''} onClick={() => setRange(null)}>All</button>
           {RANGES.map((r) => (
-            <button type="button" key={r.label} aria-pressed={range === r.label} onClick={() => setRange(range === r.label ? null : r.label)}>
+            <button type="button" key={r.label} className={range === r.label ? 'is-active' : ''} onClick={() => setRange(range === r.label ? null : r.label)}>
               {r.label}
             </button>
           ))}

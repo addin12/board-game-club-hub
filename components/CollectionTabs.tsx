@@ -5,6 +5,7 @@ import { CommunityGame } from '@/lib/types'
 import CommunityList from './CommunityList'
 import SessionBuilder from './SessionBuilder'
 import SearchForm from './SearchForm'
+import CsvImport from './CsvImport'
 
 type Tab = 'browse' | 'session' | 'bgg'
 
@@ -27,14 +28,12 @@ export default function CollectionTabs({
 
   return (
     <div>
-      <div className="tabs" role="tablist" aria-label="Collection views">
+      <div className="tabs">
         {TABS.map((t) => (
           <button
             key={t.id}
             type="button"
-            role="tab"
-            aria-selected={tab === t.id}
-            className="tab"
+            className={tab === t.id ? 'tab is-active' : 'tab'}
             onClick={() => setTab(t.id)}
           >
             {t.label}
@@ -45,11 +44,14 @@ export default function CollectionTabs({
       {tab === 'browse' && <CommunityList games={games} showOwners />}
       {tab === 'session' && <SessionBuilder members={members} games={games} />}
       {tab === 'bgg' && (
-        <div className="panel">
-          <h2>Add a collection from BoardGameGeek</h2>
-          <p>Enter a BoardGameGeek username to pull their owned games. Try <strong>Deedeen</strong>.</p>
-          <SearchForm buttonLabel="Pull collection" placeholder="BoardGameGeek username…" />
-        </div>
+        <>
+          <CsvImport />
+          <div className="panel full mt-lg">
+            <h2>Already in the system? Pull by username</h2>
+            <p>If a collection has already been synced, pull it by BGG username. Try <strong>Deedeen</strong>.</p>
+            <SearchForm buttonLabel="Pull collection" placeholder="BoardGameGeek username…" />
+          </div>
+        </>
       )}
     </div>
   )

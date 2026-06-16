@@ -118,7 +118,7 @@ body::before{
 .tab{font-family:var(--sans); font-size:14.5px; font-weight:700; cursor:pointer; padding:10px 16px;
   border:0; background:none; color:#9fb3a4; border-bottom:2px solid transparent; margin-bottom:-1px; transition:color .12s}
 .tab:hover{color:#eae3d2}
-.tab[aria-selected="true"]{color:#f7e6c8; border-bottom-color:var(--gold)}
+.tab.is-active{color:#f7e6c8; border-bottom-color:var(--gold)}
 
 /* ---------- collection controls ---------- */
 .controls{display:flex; flex-direction:column; gap:14px; margin-top:22px;
@@ -144,7 +144,7 @@ body::before{
   background:rgba(255,255,255,.05); color:#cdd9cf; transition:background .12s,color .12s,border-color .12s;
 }
 .alpha button:hover{background:rgba(255,255,255,.1)}
-.alpha button[aria-pressed="true"]{background:linear-gradient(180deg,var(--gold),var(--gold-deep)); color:#2a1c06; border-color:transparent}
+.alpha button.is-active{background:linear-gradient(180deg,var(--gold),var(--gold-deep)); color:#2a1c06; border-color:transparent}
 
 .count{font-size:13px; color:#9fb3a4}
 .count strong{color:var(--gold)}
@@ -159,6 +159,8 @@ body::before{
 }
 .gpic{flex:0 0 auto; width:64px; height:64px; border-radius:10px; overflow:hidden; background:#d8ccae; position:relative}
 .gpic img{object-fit:cover}
+.gpic-ph{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--display); font-weight:600; font-size:26px; color:var(--ink-soft)}
+.importstatus{margin:12px 0 0; font-size:14px; font-weight:600; color:var(--ink-soft)}
 .gmain{flex:1; min-width:0}
 .gname{font-family:var(--display); font-weight:600; font-size:16px; color:var(--ink); text-decoration:none; line-height:1.2}
 .gname:hover{color:var(--gold-deep)}

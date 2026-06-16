@@ -17,8 +17,13 @@ export default function GameRow({ game, showOwners = false }: { game: CommunityG
     <div className="grow">
       <div className="gpic">
         {/* Use the pre-sized 300x320 thumbnail — crisp at 64px but small enough
-            that Next's optimizer never times out (full originals can be multi-MB). */}
-        <Image src={game.thumbnail || game.image} alt={game.name} fill sizes="64px" />
+            that Next's optimizer never times out (full originals can be multi-MB).
+            CSV-imported games may have no image yet → show a letter placeholder. */}
+        {game.thumbnail || game.image ? (
+          <Image src={game.thumbnail || game.image} alt={game.name} fill sizes="64px" />
+        ) : (
+          <span className="gpic-ph" aria-hidden="true">{game.name.charAt(0)}</span>
+        )}
       </div>
 
       <div className="gmain">
