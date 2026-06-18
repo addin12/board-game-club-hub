@@ -1,5 +1,6 @@
 import { COMMUNITY_GAMES } from './community'
 import { getMemberCollections, MemberGame } from './collections'
+import { GAME_META } from './game-meta'
 import { CommunityGame } from './types'
 
 /**
@@ -58,5 +59,17 @@ export async function getCommunity(): Promise<{ games: CommunityGame[]; members:
   } catch {
     /* DB unavailable — fall back to the static seed only */
   }
-  return mergeCommunity(COMMUNITY_GAMES, memberGames)
+  const { games, members } = mergeCommunity(COMMUNITY_GAMES, memberGames)
+  // Overlay BGG `thing` enrichment (weight/mechanics/designers) by game id.
+  const enriched = games.map((g) => {
+    const m = GAME_META[g.id]
+    if (!m) return g
+    return {
+      ...g,
+      weight: g.weight ?? m.weight,
+      mechanics: g.mechanics?.length ? g.mechanics : m.mechanics,
+      designers: g.designers?.length ? g.designers : m.designers,
+    }
+  })
+  return { games: enriched, members }
 }

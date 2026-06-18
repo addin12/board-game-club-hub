@@ -11,6 +11,9 @@ function UsersIcon() {
 function ClockIcon() {
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
 }
+function WeightIcon() {
+  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v3M5 6h14l-3 7a4 4 0 0 1-8 0L5 6zM8 21h8M12 17v4" /></svg>
+}
 
 export default function GameRow({ game, showOwners = false }: { game: CommunityGame; showOwners?: boolean }) {
   return (
@@ -47,6 +50,9 @@ export default function GameRow({ game, showOwners = false }: { game: CommunityG
         )}
         <span className="stat"><UsersIcon />{formatPlayerCount(game.minPlayers, game.maxPlayers)}</span>
         <span className="stat"><ClockIcon />{formatPlayTime(game.minPlayTime, game.maxPlayTime)}</span>
+        {typeof game.weight === 'number' && game.weight > 0 && (
+          <span className="stat" title="Complexity (1 light – 5 heavy)"><WeightIcon />{game.weight.toFixed(1)}</span>
+        )}
       </div>
     </div>
   )

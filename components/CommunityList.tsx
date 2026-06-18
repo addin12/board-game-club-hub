@@ -32,7 +32,9 @@ export default function CommunityList({
   const [category, setCategory] = useState('')
   const [member, setMember] = useState('')
   const [playerCount, setPlayerCount] = useState('')
-  const [sort, setSort] = useState<'name' | 'rating' | 'year' | 'players'>('name')
+  const [weightBand, setWeightBand] = useState('')
+  const [mechanic, setMechanic] = useState('')
+  const [sort, setSort] = useState<'name' | 'rating' | 'year' | 'players' | 'weight'>('name')
   const [page, setPage] = useState(0)
   const listTop = useRef<HTMLDivElement>(null)
 
@@ -60,6 +62,12 @@ export default function CommunityList({
     return Array.from(set).sort()
   }, [games])
 
+  const mechanicsList = useMemo(() => {
+    const set = new Set<string>()
+    games.forEach((g) => g.mechanics?.forEach((m) => set.add(m)))
+    return Array.from(set).sort()
+  }, [games])
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
     const r = RANGES.find((x) => x.label === range)
@@ -74,6 +82,15 @@ export default function CommunityList({
         if (n >= 8) return g.maxPlayers >= 8 // "8+" bucket
         return g.minPlayers <= n && g.maxPlayers >= n
       })
+      .filter((g) => {
+        if (!weightBand) return true
+        const w = g.weight ?? 0
+        if (!w) return false // unknown complexity excluded when filtering by band
+        if (weightBand === 'light') return w < 2
+        if (weightBand === 'medium') return w >= 2 && w < 3
+        return w >= 3 // heavy
+      })
+      .filter((g) => (mechanic ? !!g.mechanics?.includes(mechanic) : true))
     const sorted = [...list]
     switch (sort) {
       case 'rating':
@@ -85,11 +102,14 @@ export default function CommunityList({
       case 'players':
         sorted.sort((a, b) => b.maxPlayers - a.maxPlayers || a.name.localeCompare(b.name))
         break
+      case 'weight':
+        sorted.sort((a, b) => (b.weight ?? 0) - (a.weight ?? 0) || a.name.localeCompare(b.name))
+        break
       default:
         sorted.sort((a, b) => a.name.localeCompare(b.name))
     }
     return sorted
-  }, [games, query, range, category, member, playerCount, sort])
+  }, [games, query, range, category, member, playerCount, weightBand, mechanic, sort])
 
   const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
   const safePage = Math.min(page, pageCount - 1) // clamp if results shrank
@@ -133,11 +153,26 @@ export default function CommunityList({
             ))}
             <option value="8">8+ players</option>
           </select>
+          <select className="select" aria-label="Filter by complexity" value={weightBand} onChange={(e) => { setWeightBand(e.target.value); resetToFirstPage() }}>
+            <option value="">Any complexity</option>
+            <option value="light">Light (&lt; 2)</option>
+            <option value="medium">Medium (2–3)</option>
+            <option value="heavy">Heavy (3+)</option>
+          </select>
+          {mechanicsList.length > 0 && (
+            <select className="select" aria-label="Filter by mechanic" value={mechanic} onChange={(e) => { setMechanic(e.target.value); resetToFirstPage() }}>
+              <option value="">Any mechanic</option>
+              {mechanicsList.map((m) => (
+                <option key={m} value={m}>{m}</option>
+              ))}
+            </select>
+          )}
           <select className="select" aria-label="Sort games" value={sort} onChange={(e) => { setSort(e.target.value as typeof sort); resetToFirstPage() }}>
             <option value="name">Sort: A–Z</option>
             <option value="rating">Sort: Top rated</option>
             <option value="year">Sort: Newest</option>
             <option value="players">Sort: Most players</option>
+            <option value="weight">Sort: Heaviest</option>
           </select>
         </div>
         <div className="alpha">
