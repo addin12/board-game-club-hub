@@ -6,6 +6,7 @@ import CommunityList from './CommunityList'
 import SessionBuilder from './SessionBuilder'
 import SearchForm from './SearchForm'
 import CsvImport from './CsvImport'
+import SyncFromBgg from './SyncFromBgg'
 
 type Tab = 'browse' | 'session' | 'bgg'
 
@@ -45,11 +46,14 @@ export default function CollectionTabs({
       {tab === 'session' && <SessionBuilder members={members} games={games} />}
       {tab === 'bgg' && (
         <>
-          <CsvImport />
+          <SyncFromBgg />
+          <div className="mt-lg">
+            <CsvImport />
+          </div>
           <div className="panel full mt-lg">
-            <h2>Already in the system? Pull by username</h2>
-            <p>If a collection has already been synced, pull it by BGG username. Try <strong>Deedeen</strong>.</p>
-            <SearchForm buttonLabel="Pull collection" placeholder="BoardGameGeek username…" />
+            <h2>Just browsing? View any collection</h2>
+            <p>Look at any BGG collection without adding it to the club. Try <strong>Deedeen</strong>.</p>
+            <SearchForm buttonLabel="View collection" placeholder="BoardGameGeek username…" />
           </div>
         </>
       )}

@@ -98,6 +98,11 @@ body::before{
 }
 .search input::placeholder{color:#9a8f74}
 .search input:focus{outline:2px solid var(--gold); outline-offset:1px; border-color:transparent}
+
+/* sync-from-BGG input row (username + save-as + button) */
+.syncrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:4px}
+.syncrow .pinput{flex:1; min-width:170px}
+.syncrow .btn{flex:0 0 auto}
 .btn{
   font-family:var(--sans); font-weight:700; font-size:14.5px; letter-spacing:.02em;
   padding:12px 22px; border-radius:10px; border:0; cursor:pointer;
