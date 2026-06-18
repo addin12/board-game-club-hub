@@ -63,22 +63,35 @@ const DEMO_DATA: BoardGame[] = [
   },
 ]
 
+// BGG's XML API requires a per-app bearer token (granted on approval) as of
+// 2025-07. Read server-side only — the token must never reach the browser.
+function bggHeaders(): Record<string, string> {
+  const headers: Record<string, string> = { 'User-Agent': 'BBGC/1.0 (board-game-club-hub)' }
+  const token = process.env.BGG_API_TOKEN
+  if (token) headers.Authorization = `Bearer ${token}`
+  return headers
+}
+
 /**
  * Fetches and parses a BGG collection directly (no internal HTTP round-trip).
- * Handles BGG's 202 "processing" responses with retries, and falls back to
- * demo data for the "demo"/"deedeen" usernames when BGG requires auth.
+ * Handles BGG's 202 "processing" responses with retries. When no API token is
+ * configured the XML API returns 401, so falls back to baked-in data for the
+ * "demo"/"deedeen" users (keeps local dev, CI, and the demo links working).
  */
 export async function getCollectionData(
   username: string,
   maxAttempts: number = 5,
   delayMs: number = 3000
 ): Promise<BoardGame[]> {
-  // Real scraped collection for Deedeen (BGG's XML API now requires auth)
-  if (username.toLowerCase() === 'deedeen') {
-    return DEEDEEN_COLLECTION
-  }
+  const uname = username.toLowerCase()
+  const isDemoUser = uname === 'demo'
 
-  const isDemoUser = username.toLowerCase() === 'demo'
+  // No token → the live API is locked; serve the baked-in datasets we have.
+  if (!process.env.BGG_API_TOKEN) {
+    if (uname === 'deedeen') return DEEDEEN_COLLECTION
+    if (isDemoUser) return DEMO_DATA
+    throw new CollectionError('BoardGameGeek access is not configured on the server.', 502)
+  }
 
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     console.log(`[getCollectionData] Attempt ${attempt}/${maxAttempts} for "${username}"`)
@@ -87,7 +100,7 @@ export async function getCollectionData(
     try {
       response = await fetch(
         `https://boardgamegeek.com/xmlapi2/collection?username=${encodeURIComponent(username)}&stats=1&own=1`,
-        { headers: { 'User-Agent': 'BoardGameCollectionViewer/1.0' } }
+        { headers: bggHeaders() }
       )
     } catch (networkError) {
       console.error(`[getCollectionData] Network error on attempt ${attempt}:`, networkError)
@@ -123,12 +136,10 @@ export async function getCollectionData(
     }
 
     if (response.status === 401 || response.status === 403) {
-      // BGG now sometimes requires auth — serve demo data for known test users
-      if (isDemoUser) {
-        console.warn('[getCollectionData] BGG requires auth; returning demo data')
-        return DEMO_DATA
-      }
-      throw new CollectionError('BoardGameGeek currently requires authentication for this collection.', 502)
+      // Token rejected/expired — fall back for known demo users, else surface it.
+      if (uname === 'deedeen') return DEEDEEN_COLLECTION
+      if (isDemoUser) return DEMO_DATA
+      throw new CollectionError('BoardGameGeek rejected the API token (check BGG_API_TOKEN).', 502)
     }
 
     // Any other status

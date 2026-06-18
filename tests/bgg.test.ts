@@ -67,4 +67,24 @@ describe('parseCollection', () => {
   it('returns an empty array for an empty collection', () => {
     expect(parseCollection('<items></items>')).toEqual([])
   })
+
+  // The live collection endpoint emits <name sortindex="1">…</name>, so the
+  // parser yields an object for `name` rather than a string. Regression guard.
+  it('reads the name when it carries a sortindex attribute', () => {
+    const live = `<?xml version="1.0"?>
+<items>
+  <item objectid="230802">
+    <name sortindex="1">Azul</name>
+    <yearpublished>2017</yearpublished>
+    <stats minplayers="2" maxplayers="4" minplaytime="30" maxplaytime="45">
+      <rating value="N/A"><average value="7.71"/><ranks><rank name="boardgame" value="99"/></ranks></rating>
+    </stats>
+    <numplays>0</numplays>
+  </item>
+</items>`
+    const [g] = parseCollection(live)
+    expect(g.name).toBe('Azul')
+    expect(g.id).toBe('230802')
+    expect(g.bggRank).toBe(99)
+  })
 })

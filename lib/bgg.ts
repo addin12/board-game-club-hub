@@ -12,9 +12,13 @@ interface Rank {
   '@_value'?: string
 }
 
+// In collection XML, <name> carries a sortindex attribute, so the parser yields
+// an object ({ '#text', '@_sortindex' }) rather than a plain string.
+type XmlName = string | { '#text'?: string; '@_sortindex'?: string }
+
 interface ParsedItem {
   '@_objectid': string
-  name: string
+  name: XmlName
   thumbnail?: string
   image?: string
   yearpublished?: string
@@ -69,9 +73,11 @@ export function parseCollection(xml: string): BoardGame[] {
       const bggRankValue = bggRank?.['@_value']
       const bggRankNum = bggRankValue && bggRankValue !== 'Not Ranked' ? parseInt(bggRankValue, 10) : null
 
+      const name = typeof item.name === 'string' ? item.name : item.name?.['#text'] ?? ''
+
       return {
         id: String(item['@_objectid']),
-        name: item.name || '',
+        name,
         yearPublished: item.yearpublished ? parseInt(item.yearpublished, 10) : null,
         thumbnail,
         image,
