@@ -217,7 +217,7 @@ body::before{
 .empty{text-align:center; padding:40px 20px; color:#9fb3a4}
 
 /* ---------- stat cards ---------- */
-.statgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:22px}
+.statgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-top:22px}
 @media(max-width:680px){.statgrid{grid-template-columns:repeat(2,1fr)}}
 .statcard{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:16px}
 .statcard .k{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#9fb3a4; font-weight:700}
@@ -306,6 +306,8 @@ body::before{
 .rankrow{display:flex; align-items:center; gap:12px}
 .rnum{flex:0 0 auto; width:22px; text-align:right; font-family:var(--display); font-weight:600; color:var(--ink-soft); font-size:14px}
 .rname{flex:0 0 auto; width:92px; font-weight:700; color:var(--ink); font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-decoration:none}
+.rname.playname{width:180px}
+@media(max-width:680px){.rname.playname{width:120px}}
 a.rname:hover{color:var(--gold-deep); text-decoration:underline}
 .rcount{flex:0 0 auto; width:30px; text-align:right; font-weight:700; color:var(--gold-deep)}
 .rbar{flex:1; height:10px; border:0; border-radius:999px; -webkit-appearance:none; appearance:none; background:rgba(36,31,21,.08)}

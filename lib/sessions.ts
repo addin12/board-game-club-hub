@@ -133,10 +133,11 @@ async function updateRow(
 
 // ---------- public API (auto-selects Supabase or in-memory) ----------
 
-export async function listSessions(scope: 'upcoming' | 'past' = 'upcoming'): Promise<GameSession[]> {
+export async function listSessions(scope: 'upcoming' | 'past' | 'all' = 'upcoming'): Promise<GameSession[]> {
   const sb = getSupabase()
   if (!sb) {
     const all = Array.from(memStore.values())
+    if (scope === 'all') return all.sort(byDateDesc)
     return scope === 'past'
       ? all.filter((s) => !isUpcoming(s)).sort(byDateDesc).slice(0, 50)
       : all.filter(isUpcoming).sort(byDateAsc)
@@ -145,7 +146,39 @@ export async function listSessions(scope: 'upcoming' | 'past' = 'upcoming'): Pro
   const { data, error } = await sb.from(TABLE).select('*').order('date', { ascending: scope !== 'past' })
   if (error) throw new Error(error.message)
   const mapped = (data as SessionRow[]).map(rowToSession)
+  if (scope === 'all') return mapped
   return scope === 'past' ? mapped.filter((s) => !isUpcoming(s)).slice(0, 50) : mapped.filter(isUpcoming)
+}
+
+/** Aggregate play stats from sessions members have marked as played. */
+export async function getPlayStats(): Promise<{
+  mostPlayed: { id: string; name: string; thumbnail: string; count: number }[]
+  byMonth: { month: string; count: number }[]
+  totalPlays: number
+}> {
+  let sessions: GameSession[] = []
+  try {
+    sessions = (await listSessions('all')).filter((s) => s.played)
+  } catch {
+    return { mostPlayed: [], byMonth: [], totalPlays: 0 }
+  }
+
+  const games = new Map<string, { id: string; name: string; thumbnail: string; count: number }>()
+  const months = new Map<string, number>()
+  for (const s of sessions) {
+    for (const g of s.games) {
+      const e = games.get(g.id) ?? { id: g.id, name: g.name, thumbnail: g.thumbnail, count: 0 }
+      e.count += 1
+      games.set(g.id, e)
+    }
+    const d = new Date(s.date)
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+    months.set(key, (months.get(key) ?? 0) + 1)
+  }
+
+  const mostPlayed = [...games.values()].sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
+  const byMonth = [...months.entries()].map(([month, count]) => ({ month, count })).sort((a, b) => b.month.localeCompare(a.month))
+  return { mostPlayed, byMonth, totalPlays: sessions.length }
 }
 
 export async function createSession(input: CreateSessionInput): Promise<GameSession> {
