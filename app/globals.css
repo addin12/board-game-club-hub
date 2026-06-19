@@ -346,6 +346,10 @@ a.rname:hover{color:var(--gold-deep); text-decoration:underline}
 .sopen{display:inline-block; margin-top:8px; font-size:13px; font-weight:700;
   color:var(--gold-deep); background:rgba(200,144,52,.16);
   border:1px solid rgba(200,144,52,.38); border-radius:999px; padding:4px 12px}
+/* "played" badge — session was actually played (counts toward play stats) */
+.playedbadge{display:inline-block; margin-top:8px; font-size:13px; font-weight:700;
+  color:#3f9b54; background:rgba(63,155,84,.15);
+  border:1px solid rgba(63,155,84,.40); border-radius:999px; padding:4px 12px}
 .errid{font-size:12px; opacity:.6}
 .search .backlink{align-self:center}
 /* loading skeletons */

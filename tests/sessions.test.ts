@@ -63,4 +63,12 @@ describe('sessions (in-memory)', () => {
     const upcoming = await listSessions('upcoming')
     expect(upcoming.some((x) => x.id === s.id)).toBe(false)
   })
+
+  it('starts not-played and can be marked played', async () => {
+    const s = await createSession({ date: future(), description: '', host: 'Noah', players: ['Noah'], games: [] })
+    expect(s.played).toBe(false)
+    const u = await updateSession(s.id, { played: true })
+    expect(u?.played).toBe(true)
+    await deleteSession(s.id)
+  })
 })

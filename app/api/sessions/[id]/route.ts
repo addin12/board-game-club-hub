@@ -16,7 +16,7 @@ export async function PATCH(
   try {
     const { id } = await params
     const body = await req.json()
-    const { date, description, location, players, games } = body ?? {}
+    const { date, description, location, players, games, played } = body ?? {}
 
     const updated = await updateSession(id, {
       ...(typeof date === 'string' ? { date } : {}),
@@ -24,6 +24,7 @@ export async function PATCH(
       ...(typeof location === 'string' ? { location } : {}),
       ...(Array.isArray(players) ? { players: players.filter((p) => typeof p === 'string') } : {}),
       ...(games !== undefined ? { games: sanitizeGames(games) } : {}),
+      ...(typeof played === 'boolean' ? { played } : {}),
     })
     if (!updated) {
       return Response.json({ error: 'Session not found' }, { status: 404 })

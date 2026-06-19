@@ -120,6 +120,24 @@ export default function SchedulePanel({
     }
   }
 
+  async function markPlayed(id: string) {
+    setBusy(id)
+    try {
+      const res = await fetch(`/api/sessions/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ played: true }),
+      })
+      if (res.ok) {
+        const updated: GameSession = await res.json()
+        setSessions((prev) => prev.map((s) => (s.id === id ? updated : s)))
+        setPast((prev) => (prev ? prev.map((s) => (s.id === id ? updated : s)) : prev))
+      }
+    } finally {
+      setBusy('')
+    }
+  }
+
   function startEdit(s: GameSession) {
     setEditingId(s.id)
     setEditDate(localInput(new Date(s.date)))
@@ -258,9 +276,10 @@ export default function SchedulePanel({
                     <div className="sgame">Games TBD</div>
                   )}
 
-                  {opened && (
+                  {opened && !s.played && (
                     <div className="sopen">✋ Open to the club — anyone can jump in</div>
                   )}
+                  {s.played && <div className="playedbadge">✓ Played</div>}
 
                   {s.location && <p className="sloc">📍 {s.location}</p>}
                   {s.description && <p className="sdesc">{s.description}</p>}
@@ -346,6 +365,9 @@ export default function SchedulePanel({
 
                       {isHost && (
                         <div className="hostactions">
+                          {!s.played && (
+                            <button type="button" className="linkbtn" disabled={busy === s.id} onClick={() => markPlayed(s.id)}>Mark as played</button>
+                          )}
                           <button type="button" className="linkbtn" onClick={() => startEdit(s)}>Edit</button>
                           <button type="button" className="linkbtn danger" disabled={busy === s.id} onClick={() => cancelSession(s.id)}>Cancel session</button>
                         </div>
@@ -393,13 +415,19 @@ export default function SchedulePanel({
                       ) : (
                         <div className="sgame">Games TBD</div>
                       )}
+                      {s.played && <div className="playedbadge">✓ Played</div>}
                       {s.location && <p className="sloc">📍 {s.location}</p>}
                       {s.description && <p className="sdesc">{s.description}</p>}
-                      <div className="smeta">Called by <strong>{s.host}</strong> · {ins.length} played</div>
+                      <div className="smeta">Called by <strong>{s.host}</strong> · {ins.length} went</div>
                       <div className="attend">
                         {ins.map((n) => <span className="apill" key={n}>{n}</span>)}
                         {maybes.map((n) => <span className="apill maybe" key={n}>{n}?</span>)}
                       </div>
+                      {!s.played && me && me === s.host && (
+                        <div className="hostactions">
+                          <button type="button" className="linkbtn" disabled={busy === s.id} onClick={() => markPlayed(s.id)}>Mark as played</button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )

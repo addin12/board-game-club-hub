@@ -17,6 +17,7 @@ export interface GameSession {
   players: string[] // proposed table (from the session builder)
   games: GameRef[] // games planned for the session (a game night can have several)
   rsvps: Record<string, RsvpStatus>
+  played: boolean // host marked it as actually played → counts toward play stats
   createdAt: number
 }
 
@@ -35,6 +36,7 @@ export interface UpdateSessionInput {
   location?: string
   players?: string[]
   games?: GameRef[]
+  played?: boolean
 }
 
 const TABLE = 'sessions'
@@ -70,6 +72,7 @@ interface SessionRow {
   game?: GameRef | null // legacy single-game column (older rows)
   games?: GameRef[] | null
   rsvps: Record<string, RsvpStatus> | null
+  played?: boolean | null
   created_at: string
 }
 
@@ -85,6 +88,7 @@ function rowToSession(row: SessionRow): GameSession {
     players: row.players ?? [],
     games,
     rsvps: row.rsvps ?? {},
+    played: row.played ?? false,
     createdAt: new Date(row.created_at).getTime(),
   }
 }
@@ -159,6 +163,7 @@ export async function createSession(input: CreateSessionInput): Promise<GameSess
       players: input.players,
       games,
       rsvps: { [input.host]: 'in' },
+      played: false,
       createdAt: Date.now(),
     }
     memStore.set(full.id, full)
@@ -175,6 +180,7 @@ export async function createSession(input: CreateSessionInput): Promise<GameSess
     game: games[0] ?? null,
     games,
     rsvps: { [input.host]: 'in' as RsvpStatus },
+    played: false,
   })
   return rowToSession(row)
 }
@@ -222,6 +228,7 @@ export async function updateSession(id: string, input: UpdateSessionInput): Prom
   if (input.description !== undefined) patch.description = input.description.trim()
   if (input.location !== undefined) patch.location = input.location.trim()
   if (input.players !== undefined) patch.players = input.players
+  if (input.played !== undefined) patch.played = input.played
   if (input.games !== undefined) {
     patch.games = input.games
     patch.game = input.games[0] ?? null // keep legacy column in sync
@@ -236,6 +243,7 @@ export async function updateSession(id: string, input: UpdateSessionInput): Prom
     if (input.location !== undefined) s.location = patch.location as string
     if (input.players !== undefined) s.players = input.players
     if (input.games !== undefined) s.games = input.games
+    if (input.played !== undefined) s.played = input.played
     memStore.set(id, s)
     return s
   }
