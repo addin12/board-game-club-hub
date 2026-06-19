@@ -1,5 +1,6 @@
 import { getCollectionData, CollectionError } from '@/lib/collection'
 import { saveMemberCollection } from '@/lib/collections'
+import { isVerified } from '@/lib/verify'
 
 export const dynamic = 'force-dynamic'
 
@@ -14,6 +15,11 @@ export async function POST(req: Request) {
       return Response.json({ error: 'Enter a valid BoardGameGeek username (letters, numbers, - and _).' }, { status: 400 })
     }
     const name = (typeof member === 'string' && member.trim() ? member.trim() : username).slice(0, 40)
+
+    // Only the verified owner of a BGG account may add its collection.
+    if (!(await isVerified(username))) {
+      return Response.json({ error: 'Verify that you own this BGG account before syncing.', needsVerification: true }, { status: 403 })
+    }
 
     let games
     try {

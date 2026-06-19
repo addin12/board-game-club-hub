@@ -103,6 +103,15 @@ body::before{
 .syncrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:4px}
 .syncrow .pinput{flex:1; min-width:170px}
 .syncrow .btn{flex:0 0 auto}
+
+/* BGG ownership verification */
+.verifybox{margin-top:14px; padding-top:14px; border-top:1px solid var(--line)}
+.vcode{display:inline-block; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:16px; font-weight:700;
+  letter-spacing:.04em; color:var(--ink); background:#fffdf7; border:1px dashed var(--gold-deep);
+  border-radius:8px; padding:8px 14px; margin:4px 0 10px; -webkit-user-select:all; user-select:all}
+.vsteps{margin:0 0 14px; padding-left:20px; font-size:14px; color:var(--ink-soft); line-height:1.7}
+.vsteps a{color:var(--gold-deep); font-weight:600}
+.verifyok{font-size:14.5px; font-weight:700; color:#3f9b54; margin:0 0 10px}
 .btn{
   font-family:var(--sans); font-weight:700; font-size:14.5px; letter-spacing:.02em;
   padding:12px 22px; border-radius:10px; border:0; cursor:pointer;

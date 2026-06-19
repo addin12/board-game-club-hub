@@ -114,6 +114,22 @@ Supabase's free tier needs no credit card. Setup takes ~3 minutes:
 
    Without it, CSV uploads still parse and display — they just can't be saved to the community.
 
+   For **BGG ownership verification** (members prove they own an account before syncing), add:
+
+   ```sql
+   create table if not exists verified_accounts (
+     username text primary key,
+     code text not null,
+     verified boolean default false,
+     updated_at timestamptz default now()
+   );
+   alter table verified_accounts enable row level security;
+   create policy "verified_accounts open" on verified_accounts for all using (true) with check (true);
+   grant all on verified_accounts to anon, authenticated;
+   ```
+
+   The sync route requires a verified owner — create this table before deploying the verification gate.
+
    *(Optional, recommended)* Add this function so RSVPs update **atomically** (no lost writes when
    two people RSVP at the same instant). Without it, the app falls back to a read-modify-write,
    which is fine for low traffic:
