@@ -2111,7 +2111,7 @@ export const COMMUNITY_GAMES: CommunityGame[] = [
     "yearPublished": 1997,
     "image": "https://cf.geekdo-images.com/8SADtu_4zBH_UJrCo935Iw__original/img/RNuAr2CDbxE3XzeJVkxj4Df3eVM=/0x0/filters:format(jpeg)/pic6348964.jpg",
     "thumbnail": "https://cf.geekdo-images.com/8SADtu_4zBH_UJrCo935Iw__previewthumb/img/a0NWSB3UZ_3iTZb4gWfa3l9n-mA=/fit-in/300x320/filters:strip_icc()/pic6348964.jpg",
-    "minPlayers": 2,
+    "minPlayers": 3,
     "maxPlayers": 7,
     "minPlayTime": 45,
     "maxPlayTime": 45,
