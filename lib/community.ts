@@ -1243,7 +1243,7 @@ export const COMMUNITY_GAMES: CommunityGame[] = [
     "thumbnail": "https://cf.geekdo-images.com/wcYNm1g5mtv6LNZGok_PZw__previewthumb/img/9KT5vu6DKpTzSc14P8TNglO16lM=/fit-in/300x320/filters:strip_icc()/pic8491761.png",
     "minPlayers": 2,
     "maxPlayers": 2,
-    "minPlayTime": 30,
+    "minPlayTime": 45,
     "maxPlayTime": 45,
     "communityRating": 6.9,
     "userRating": null,
