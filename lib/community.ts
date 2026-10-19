@@ -1882,7 +1882,7 @@ export const COMMUNITY_GAMES: CommunityGame[] = [
     "image": "https://cf.geekdo-images.com/3dIGGmZpEj8ND0WwBWGtDw__original/img/6EifG7D8YEKnT65VGKfbyc6sSss=/0x0/filters:format(png)/pic8946171.png",
     "thumbnail": "https://cf.geekdo-images.com/3dIGGmZpEj8ND0WwBWGtDw__previewthumb/img/O4Tv8FTWqXu4Ot8PmZGTS8sXK2A=/fit-in/300x320/filters:strip_icc()/pic8946171.png",
     "minPlayers": 2,
-    "maxPlayers": 3,
+    "maxPlayers": 2,
     "minPlayTime": 10,
     "maxPlayTime": 10,
     "communityRating": 5.9,
